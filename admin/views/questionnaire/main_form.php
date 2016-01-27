@@ -8,11 +8,11 @@
                     <!--   <a class="btn btn-create" onclick="open_welcome()"  data-toggle="modal"> Welcome Screen</a> -->
                     <a class="btn btn-create" href="#modify_theme_modal" data-toggle="modal"><i
                             class="fa fa-sign-out logout-icon" style="font-size: 15px;
-    vertical-align: baseline;"></i> Customize Theme</a>
+                            vertical-align: baseline;"></i> Customize Theme</a>
                     <!-- <a class="btn btn-create" onclick="open_thank_you()" data-toggle="modal"> Thank you Screen</a> -->
                 </div>
                 <div class="col-md-4 rl" style="padding:0;margin:0;"><i
-                        class="fa fa-tasks"></i><?php echo $questionnaire->name;?></div>
+                        class="fa fa-tasks"></i><?php echo $questionnaire->name; ?></div>
             </header>
         </div>
     </div>
@@ -22,23 +22,29 @@
     <div class="col-sm-12 bk">
         <div class="panel">
             <div class="small" id="welcome_screen_div" onclick="$('#add_welcome_modal').modal('show')">
-                <!-- <?php //echo $this->load->view('questionnaire/welcome_screen',$questionnaire);?>-->
+                <!-- <?php //echo $this->load->view('questionnaire/welcome_screen',$questionnaire);   ?>-->
                 <h3>Click to add Welcome screen here</h3>
 
                 <p>Write a welcome message & add logo image or video to make a greate first impression</p>
             </div>
             <div class="large" id="question_list">
+                <div class="small" id="thank_you_screen_div" onclick="$('#add_question_modal').modal('show')">
+                    <h3>Click to add Question here</h3>
+
+                </div>
                 <?php
                 $i = 0;
-                foreach ($questions as $question): ?>
-                    <div class="line-holder" id="ques_<?php echo $question->id; ?>">
-                        <span class="numbering"><?php echo ++$i; ?></span>
+                foreach ($questions as $question):
+                    ?>
 
+                    <div class="line-holder" id="ques_<?php echo $question->id; ?>">
+
+                        <span class="numbering"><?php echo++$i; ?></span>
                         <div class="line">
                             <?php echo $question->question_name; ?>
                             <div class="btn-holder">
-                        <span
-                            class="label label-primary"><?php echo $question->type;?></span>
+                                <span
+                                    class="label label-primary"><?php echo $question->type; ?></span>
                                 <a class="bt"
                                    onclick="edit_question(<?php echo $question->id; ?>,<?php echo $questionnaire->id; ?>)">
                                     <i class="fa fa-pencil" title="Update"></i>
@@ -48,15 +54,18 @@
                                 </a>
                             </div>
                         </div>
+
+
                     </div>
-                <?php endforeach?>
+                <?php endforeach ?>
+
             </div>
             <div class="small" id="thank_you_screen_div" onclick="$('#add_thankyou_modal').modal('show')">
                 <h3>Click to add Thank you screen here</h3>
 
                 <p>Write a custom thank you message and make it easy for your respondents to share your typeform</p>
 
-                <!-- <?php //echo $this->load->view('questionnaire/thank_you_screen',$questionnaire);?>-->
+                <!-- <?php //echo $this->load->view('questionnaire/thank_you_screen',$questionnaire);   ?>-->
             </div>
         </div>
 
@@ -128,11 +137,13 @@
                                 <label for="banner_colour">Button Type</label>
 
                                 <select id="btn_type" class="form-control" name="btn_type">
-                                    <option value="3d" <?php if ($questionnaire->btn_type == '3d'
+                                    <option value="3d" <?php
+                                    if ($questionnaire->btn_type == '3d'
                                     ) {
                                         ?> selected="true" <?php } ?>>3D
                                     </option>
-                                    <option value="flat" <?php if ($questionnaire->btn_type == 'flat'
+                                    <option value="flat" <?php
+                                    if ($questionnaire->btn_type == 'flat'
                                     ) {
                                         ?> selected="true" <?php } ?>>Flat
                                     </option>
@@ -233,33 +244,33 @@
                             </div>
                         </div>
                         <script src="<?php echo base_url(); ?>admin_resources/file_upload_plugin/ajaxupload.3.5.js"
-                                type="text/javascript"></script>
+                        type="text/javascript"></script>
                         <script>
-                            //upload image
-                            $(function () {
-                                var btnUpload = $('#upload_wel');
-                                new AjaxUpload(btnUpload, {
-                                    action: '<?php echo site_url(); ?>/questionnaire/upload_welcome_image/<?php echo $questionnaire->id; ?>',
-                                    name: 'uploadfile',
-                                    onSubmit: function (file, ext) {
-                                        if (!(ext && /^(jpg|png|jpeg|gif)$/.test(ext))) {
-                                            // extension is not allowed
-                                            toastr.error('Only JPG, PNG or GIF files are allowed');
-                                            return false;
-                                        }
-                                    },
-                                    onComplete: function (file, response) {
-                                        $("#upload_wel").html("");
-                                        //Add uploaded file to list
-                                        if (response != "error") {
-                                            $('#upload_wel').html("");
-                                            $('#upload_wel').html('<img id="wizardPicturePreview" title="" class="thank-img" src="<?php echo base_url(); ?>uploads/' + response + '"  />');
+                //upload image
+                $(function() {
+                    var btnUpload = $('#upload_wel');
+                    new AjaxUpload(btnUpload, {
+                        action: '<?php echo site_url(); ?>/questionnaire/upload_welcome_image/<?php echo $questionnaire->id; ?>',
+                        name: 'uploadfile',
+                        onSubmit: function(file, ext) {
+                            if (!(ext && /^(jpg|png|jpeg|gif)$/.test(ext))) {
+                                // extension is not allowed
+                                toastr.error('Only JPG, PNG or GIF files are allowed');
+                                return false;
+                            }
+                        },
+                        onComplete: function(file, response) {
+                            $("#upload_wel").html("");
+                            //Add uploaded file to list
+                            if (response != "error") {
+                                $('#upload_wel').html("");
+                                $('#upload_wel').html('<img id="wizardPicturePreview" title="" class="thank-img" src="<?php echo base_url(); ?>uploads/' + response + '"  />');
 
-                                        }
-                                    }
-                                });
+                            }
+                        }
+                    });
 
-                            });
+                });
                         </script>
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -267,8 +278,10 @@
 
                                 <div id="upload_wel">
                                     <img id="wizardPicturePreview" title="" class="thank-img"
-                                         src="<?php echo base_url(
-                                         ); ?>uploads/<?php echo $questionnaire->thank_image; ?>"/>
+                                         src="<?php
+                                         echo base_url(
+                                         );
+                                         ?>uploads/<?php echo $questionnaire->thank_image; ?>"/>
                                 </div>
                             </div>
                         </div>
@@ -339,22 +352,22 @@
                             </div>
                         </div>
                         <script src="<?php echo base_url(); ?>admin_resources/file_upload_plugin/ajaxupload.3.5.js"
-                                type="text/javascript"></script>
+                        type="text/javascript"></script>
                         <script>
                             //upload image
-                            $(function () {
+                            $(function() {
                                 var btnUpload = $('#upload');
                                 new AjaxUpload(btnUpload, {
                                     action: '<?php echo site_url(); ?>/questionnaire/upload_thank_you_image/<?php echo $questionnaire->id; ?>',
                                     name: 'uploadfile',
-                                    onSubmit: function (file, ext) {
+                                    onSubmit: function(file, ext) {
                                         if (!(ext && /^(jpg|png|jpeg|gif)$/.test(ext))) {
                                             // extension is not allowed
                                             toastr.error('Only JPG, PNG or GIF files are allowed');
                                             return false;
                                         }
                                     },
-                                    onComplete: function (file, response) {
+                                    onComplete: function(file, response) {
                                         $("#upload").html("");
                                         //Add uploaded file to list
                                         if (response != "error") {
@@ -376,8 +389,10 @@
 
                                 <div id="upload">
                                     <img id="wizardPicturePreview" title="" class="thank-img"
-                                         src="<?php echo base_url(
-                                         ); ?>uploads/<?php echo $questionnaire->thank_image; ?>"/>
+                                         src="<?php
+                                         echo base_url(
+                                         );
+                                         ?>uploads/<?php echo $questionnaire->thank_image; ?>"/>
                                 </div>
                             </div>
                         </div>
@@ -417,9 +432,9 @@
                                     <?php foreach ($question_types as $question_type) { ?>
                                         <option
                                             value="<?php echo $question_type->id; ?>"><?php echo $question_type->name; ?></option>
-                                    <?php
-                                    }
-                                    ?>
+                                            <?php
+                                        }
+                                        ?>
                                 </select>
                             </div>
 
@@ -442,7 +457,7 @@
                                               name="question_name_ta"></textarea>
                                 </div>
 
-                            <?php }?>
+                            <?php } ?>
 
                             <div class="form-group cc">
                                 <div class="form-group draggable txtArea">
@@ -506,201 +521,201 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>admin_resources/temp/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
-    function open_welcome() {
-        $('#welcome_screen_div').show();
-        $('#question_list').hide();
-        $('#thank_you_screen_div').hide();
-    }
+                            function open_welcome() {
+                                $('#welcome_screen_div').show();
+                                $('#question_list').hide();
+                                $('#thank_you_screen_div').hide();
+                            }
 
-    function open_thank_you() {
-        $('#welcome_screen_div').hide();
-        $('#question_list').hide();
-        $('#thank_you_screen_div').show();
-    }
+                            function open_thank_you() {
+                                $('#welcome_screen_div').hide();
+                                $('#question_list').hide();
+                                $('#thank_you_screen_div').show();
+                            }
 
-    //this is to auto fill the Question
-    function fill_question(element) {
+                            //this is to auto fill the Question
+                            function fill_question(element) {
 
-        var q_text = $(element).val();
-        $('.q_name_heading').html(q_text);
-    }
+                                var q_text = $(element).val();
+                                $('.q_name_heading').html(q_text);
+                            }
 
-    //Edit Question
-    function edit_question(ques_id, questionnaire_id) {
+                            //Edit Question
+                            function edit_question(ques_id, questionnaire_id) {
 
-        $.post(site_url + '/questionnaire/load_edit_question_content', {q_id: ques_id, questionnaire_id: questionnaire_id}, function (msg) {
+                                $.post(site_url + '/questionnaire/load_edit_question_content', {q_id: ques_id, questionnaire_id: questionnaire_id}, function(msg) {
 
-            $('#question_edit_content').html('');
-            $('#question_edit_content').html(msg);
-            $('#question_edit_div').modal('show');
-        });
-    }
+                                    $('#question_edit_content').html('');
+                                    $('#question_edit_content').html(msg);
+                                    $('#question_edit_div').modal('show');
+                                });
+                            }
 
-    //delete question
-    function delete_question(id) {
+                            //delete question
+                            function delete_question(id) {
 
-        if (confirm('Are you sure want to delete this Question ?')) {
+                                if (confirm('Are you sure want to delete this Question ?')) {
 
-            $.ajax({
-                type: "POST",
-                url: site_url + '/questionnaire/delete_question',
-                data: "id=" + id,
-                success: function (msg) {
-                    if (msg == 1) {
-                        $('#ques_' + id).hide();
-                        toastr.success("Successfully deleted !!", "Feedbox");
-                    }
-                    else if (msg == 2) {
-                        toastr.error("Cannot be deleted as it is already assigned. !!", "Feedbox");
-                    }
-                }
-            });
-        }
-    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: site_url + '/questionnaire/delete_question',
+                                        data: "id=" + id,
+                                        success: function(msg) {
+                                            if (msg == 1) {
+                                                $('#ques_' + id).hide();
+                                                toastr.success("Successfully deleted !!", "Feedbox");
+                                            }
+                                            else if (msg == 2) {
+                                                toastr.error("Cannot be deleted as it is already assigned. !!", "Feedbox");
+                                            }
+                                        }
+                                    });
+                                }
+                            }
 
-    $(document).ready(function ($) {
+                            $(document).ready(function($) {
 
-        //modify theme
-        $("#add_theme_form").validate({
-            submitHandler: function (form) {
-                $.post(site_url + '/questionnaire/save_theme', $('#add_theme_form').serialize(), function (msg) {
-                    toastr.success("Successfully saved !!", "Feedbox");
-                    $('#modify_theme_modal').modal('hide');
-                });
-
-
-            }
-        });
-
-        //modify texts
-        $("#add_thank_form").validate({
-            rules: {
-                thank_text: "required"
-            },
-            submitHandler: function (form) {
-                $.post(site_url + '/questionnaire/save_thank_you_text', $('#add_thank_form').serialize(), function (msg) {
-                    toastr.success("Successfully saved !!", "Feedbox");
-                    $('#add_thankyou_modal').modal('hide');
-                });
+                                //modify theme
+                                $("#add_theme_form").validate({
+                                    submitHandler: function(form) {
+                                        $.post(site_url + '/questionnaire/save_theme', $('#add_theme_form').serialize(), function(msg) {
+                                            toastr.success("Successfully saved !!", "Feedbox");
+                                            $('#modify_theme_modal').modal('hide');
+                                        });
 
 
-            }
-        });
+                                    }
+                                });
 
-        //modify texts
-        $("#add_welcom_form").validate({
-            rules: {
-                welcome_text: "required"
-            },
-            submitHandler: function (form) {
-                $.post(site_url + '/questionnaire/save_welcome', $('#add_welcom_form').serialize(), function (msg) {
-                    toastr.success("Successfully saved !!", "Feedbox");
-                    $('#add_welcome_modal').modal('hide');
-                });
-
-
-            }
-        });
-
-        //add new question form validation
-        $("#add_question_form").validate({
-            rules: {
-                question_name: "required",
-                answer_type: "required"
-            },
-            messages: {
-                question_name: "Please enter question name",
-                answer_type: "Please select an answer type"
-            },
-            submitHandler: function (form) {
-                questionnaire_id = $('#questionnaire_id').val();
-                $.post(site_url + '/questionnaire/save_question', $('#add_question_form').serialize(), function (msg) {
-                    if (msg == 1) {
-                        toastr.success("Successfully saved !!", "Feedbox");
-                        setTimeout("location.href = site_url+'/questionnaire/main_form/'+questionnaire_id;", 100);
-                    } else {
-                        toastr.error("Error Occurred !!", "Feedbox");
-                    }
-                });
+                                //modify texts
+                                $("#add_thank_form").validate({
+                                    rules: {
+                                        thank_text: "required"
+                                    },
+                                    submitHandler: function(form) {
+                                        $.post(site_url + '/questionnaire/save_thank_you_text', $('#add_thank_form').serialize(), function(msg) {
+                                            toastr.success("Successfully saved !!", "Feedbox");
+                                            $('#add_thankyou_modal').modal('hide');
+                                        });
 
 
-            }
-        });
+                                    }
+                                });
 
-        $(".draggable").draggable({ revert: "invalid", cursor: "move", helper: "clone", start: function (event, ui) {
-            $(this).css("z-index", 8000);
-        }});
-        $("#droppable").droppable({
-            hoverClass: "ui-state-active",
-            drop: function (event, ui) {
-                $(this).addClass("ui-state-highlight");
-                $('.content').empty();
-
-
-                if ($(ui.draggable).hasClass('txtArea')) {
-
-                    $('.content').append('<div><a class=\"clse\">x</a><textarea type="text" class="form-control tarea" id="32tarea" name="answer[32]" placeholder="type here...."></textarea></div>');
-                    $('#answer_type').val('tarea');
-                } else if ($(ui.draggable).hasClass('txtfield')) {
-                    $('.content').append('<div><a class=\"clse\">x</a><input type="text" class="form-control tfield" id="32tarea" name="answer[32]" placeholder="type here...."/></div>');
-                    $('#answer_type').val('txt');
-                } else if ($(ui.draggable).hasClass('radio')) {
-                    $('.content').append("<div><a class=\"clse\">x</a><div class=\"cc-selector\">" +
-                        "                                                                                    <div class=\"op\">" +
-                        "                                                <input id=\"Poor1\" type=\"radio\" name=\"answer[1]\" value=\"1\">" +
-                        "                                                <label class=\"drinkcard-cc Poor\" for=\"Poor1\"></label>" +
-                        "                                                <p>Poor</p>" +
-                        "                                            </div>" +
-                        "                                                                                    <div class=\"op\">" +
-                        "                                                <input id=\"Satisfactory1\" type=\"radio\" name=\"answer[1]\" value=\"2\">" +
-                        "                                                <label class=\"drinkcard-cc Satisfactory\" for=\"Satisfactory1\"></label>" +
-                        "                                                <p>Satisfactory</p>" +
-                        "                                            </div>" +
-                        "                                                                                    <div class=\"op\">" +
-                        "                                                <input id=\"Good1\" type=\"radio\" name=\"answer[1]\" value=\"3\">" +
-                        "                                                <label class=\"drinkcard-cc Good\" for=\"Good1\"></label>" +
-                        "                                                <p>Good</p>" +
-                        "                                            </div>" +
-                        "                                                                                    <div class=\"op\">" +
-                        "                                                <input id=\"Excellent1\" type=\"radio\" name=\"answer[1]\" checked=\"true\" value=\"4\">" +
-                        "                                                <label class=\"drinkcard-cc Excellent\" for=\"Excellent1\"></label>" +
-                        "                                                <p>Excellent</p>" +
-                        "                                            </div>" +
-                        "                                                                            </div></div>");
-                    $('#answer_type').val('emo');
-                } else if ($(ui.draggable).hasClass('yn')) {
-                    $('.content').append("<div><a class=\"clse\">x</a><div class=\"cc-selector\">" +
-                        "                                        <div class=\"op\">" +
-                        "                                            <input checked=\"checked\" id=\"y31\" type=\"radio\" name=\"answer[31]\" value=\"1\">" +
-                        "                                            <label class=\"drinkcard-cc y3\" for=\"y31\"></label>" +
-                        "                                            " +
-                        "                                        </div>" +
-                        "                                        <div class=\"op\">" +
-                        "                                            <input id=\"n31\" type=\"radio\" name=\"answer[31]\" value=\"0\" checked=\"true\">" +
-                        "                                            <label class=\"drinkcard-cc n3\" for=\"n31\"></label>" +
-                        "                                            " +
-                        "                                        </div>" +
-                        "                                    </div></div>");
-                    $('#answer_type').val('yno');
-                }
-
-            }
-        });
+                                //modify texts
+                                $("#add_welcom_form").validate({
+                                    rules: {
+                                        welcome_text: "required"
+                                    },
+                                    submitHandler: function(form) {
+                                        $.post(site_url + '/questionnaire/save_welcome', $('#add_welcom_form').serialize(), function(msg) {
+                                            toastr.success("Successfully saved !!", "Feedbox");
+                                            $('#add_welcome_modal').modal('hide');
+                                        });
 
 
-        $('.content').on('click', '.clse', function () {
-            $(this).parent().empty();
-            $('#answer_type').val('');
-        });
+                                    }
+                                });
 
-        $(document).on('change', '.ques_type', function () {
-            question_type = $(this).find('option:selected').text();
-            if ($(this).val() != "") {
-                $('.modal-title').html(question_type);
-            } else {
-                $('.modal-title').html("  ");
-            }
-        });
-    });
+                                //add new question form validation
+                                $("#add_question_form").validate({
+                                    rules: {
+                                        question_name: "required",
+                                        answer_type: "required"
+                                    },
+                                    messages: {
+                                        question_name: "Please enter question name",
+                                        answer_type: "Please select an answer type"
+                                    },
+                                    submitHandler: function(form) {
+                                        questionnaire_id = $('#questionnaire_id').val();
+                                        $.post(site_url + '/questionnaire/save_question', $('#add_question_form').serialize(), function(msg) {
+                                            if (msg == 1) {
+                                                toastr.success("Successfully saved !!", "Feedbox");
+                                                setTimeout("location.href = site_url+'/questionnaire/main_form/'+questionnaire_id;", 100);
+                                            } else {
+                                                toastr.error("Error Occurred !!", "Feedbox");
+                                            }
+                                        });
+
+
+                                    }
+                                });
+
+                                $(".draggable").draggable({revert: "invalid", cursor: "move", helper: "clone", start: function(event, ui) {
+                                        $(this).css("z-index", 8000);
+                                    }});
+                                $("#droppable").droppable({
+                                    hoverClass: "ui-state-active",
+                                    drop: function(event, ui) {
+                                        $(this).addClass("ui-state-highlight");
+                                        $('.content').empty();
+
+
+                                        if ($(ui.draggable).hasClass('txtArea')) {
+
+                                            $('.content').append('<div><a class=\"clse\">x</a><textarea type="text" class="form-control tarea" id="32tarea" name="answer[32]" placeholder="type here...."></textarea></div>');
+                                            $('#answer_type').val('tarea');
+                                        } else if ($(ui.draggable).hasClass('txtfield')) {
+                                            $('.content').append('<div><a class=\"clse\">x</a><input type="text" class="form-control tfield" id="32tarea" name="answer[32]" placeholder="type here...."/></div>');
+                                            $('#answer_type').val('txt');
+                                        } else if ($(ui.draggable).hasClass('radio')) {
+                                            $('.content').append("<div><a class=\"clse\">x</a><div class=\"cc-selector\">" +
+                                                    "                                                                                    <div class=\"op\">" +
+                                                    "                                                <input id=\"Poor1\" type=\"radio\" name=\"answer[1]\" value=\"1\">" +
+                                                    "                                                <label class=\"drinkcard-cc Poor\" for=\"Poor1\"></label>" +
+                                                    "                                                <p>Poor</p>" +
+                                                    "                                            </div>" +
+                                                    "                                                                                    <div class=\"op\">" +
+                                                    "                                                <input id=\"Satisfactory1\" type=\"radio\" name=\"answer[1]\" value=\"2\">" +
+                                                    "                                                <label class=\"drinkcard-cc Satisfactory\" for=\"Satisfactory1\"></label>" +
+                                                    "                                                <p>Satisfactory</p>" +
+                                                    "                                            </div>" +
+                                                    "                                                                                    <div class=\"op\">" +
+                                                    "                                                <input id=\"Good1\" type=\"radio\" name=\"answer[1]\" value=\"3\">" +
+                                                    "                                                <label class=\"drinkcard-cc Good\" for=\"Good1\"></label>" +
+                                                    "                                                <p>Good</p>" +
+                                                    "                                            </div>" +
+                                                    "                                                                                    <div class=\"op\">" +
+                                                    "                                                <input id=\"Excellent1\" type=\"radio\" name=\"answer[1]\" checked=\"true\" value=\"4\">" +
+                                                    "                                                <label class=\"drinkcard-cc Excellent\" for=\"Excellent1\"></label>" +
+                                                    "                                                <p>Excellent</p>" +
+                                                    "                                            </div>" +
+                                                    "                                                                            </div></div>");
+                                            $('#answer_type').val('emo');
+                                        } else if ($(ui.draggable).hasClass('yn')) {
+                                            $('.content').append("<div><a class=\"clse\">x</a><div class=\"cc-selector\">" +
+                                                    "                                        <div class=\"op\">" +
+                                                    "                                            <input checked=\"checked\" id=\"y31\" type=\"radio\" name=\"answer[31]\" value=\"1\">" +
+                                                    "                                            <label class=\"drinkcard-cc y3\" for=\"y31\"></label>" +
+                                                    "                                            " +
+                                                    "                                        </div>" +
+                                                    "                                        <div class=\"op\">" +
+                                                    "                                            <input id=\"n31\" type=\"radio\" name=\"answer[31]\" value=\"0\" checked=\"true\">" +
+                                                    "                                            <label class=\"drinkcard-cc n3\" for=\"n31\"></label>" +
+                                                    "                                            " +
+                                                    "                                        </div>" +
+                                                    "                                    </div></div>");
+                                            $('#answer_type').val('yno');
+                                        }
+
+                                    }
+                                });
+
+
+                                $('.content').on('click', '.clse', function() {
+                                    $(this).parent().empty();
+                                    $('#answer_type').val('');
+                                });
+
+                                $(document).on('change', '.ques_type', function() {
+                                    question_type = $(this).find('option:selected').text();
+                                    if ($(this).val() != "") {
+                                        $('.modal-title').html(question_type);
+                                    } else {
+                                        $('.modal-title').html("  ");
+                                    }
+                                });
+                            });
 
 </script>
