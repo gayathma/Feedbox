@@ -4,6 +4,7 @@ class Patients_feeds_model extends CI_Model{
     
     var $id;
     var $feed;
+    var $questionnaire_id;
     var $patient_id;
     var $question_id;
     var $is_deleted;
@@ -13,7 +14,15 @@ class Patients_feeds_model extends CI_Model{
     function __construct(){
         parent::__construct();
     }
+    
+    public function get_questionnaire_id() {
+        return $this->questionnaire_id;
+    }
 
+    public function set_questionnaire_id($questionnaire_id) {
+        $this->questionnaire_id = $questionnaire_id;
+    }
+    
     public function set_added_date($added_date)
     {
         $this->added_date = $added_date;

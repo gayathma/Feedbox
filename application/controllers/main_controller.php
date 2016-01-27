@@ -119,6 +119,7 @@ class Main_controller extends CI_Controller
         foreach ($questions as $question) {
             $patients_feeds_model = new Patients_feeds_model();
 
+            $patients_feeds_model->set_questionnaire_id($this->input->post('questionnaire_id', TRUE));
             $patients_feeds_model->set_feed($answers[$question]);
             $patients_feeds_model->set_patient_id($patient_id);
             $patients_feeds_model->set_question_id($question);
