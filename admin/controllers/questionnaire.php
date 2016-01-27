@@ -51,6 +51,7 @@ class Questionnaire extends CI_Controller
         $questionnaire_model->set_welcome_text_desc(
             'Please rate your level of satisfaction by clicking the appropriate face'
         );
+        $questionnaire_model->set_active_user_detail($this->input->post('active_user_detail', TRUE));
         $questionnaire_model->set_added_date(date("Y-m-d H:i:s"));
         $questionnaire_model->set_is_deleted('0');
         $questionnaire_model->set_is_published('1');

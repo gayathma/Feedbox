@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2016 at 04:39 PM
+-- Generation Time: Jan 27, 2016 at 05:02 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -54,7 +54,7 @@ INSERT INTO `fb_locations` (`id`, `name`, `type`, `is_published`, `is_deleted`, 
 
 CREATE TABLE IF NOT EXISTS `fb_patients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `patient_number` varchar(255) NOT NULL,
+  `patient_number` varchar(255) DEFAULT NULL,
   `patient_name` varchar(255) NOT NULL,
   `patient_contact_no` varchar(15) DEFAULT NULL,
   `patient_email` varchar(255) DEFAULT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `fb_patients` (
   `added_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `fb_patients`
@@ -94,7 +94,8 @@ INSERT INTO `fb_patients` (`id`, `patient_number`, `patient_name`, `patient_cont
 (21, 'dsd', 'dsad', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '2016-01-27 09:41:40', NULL),
 (22, 'dasd', 'dasdasd', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '2016-01-27 09:42:32', NULL),
 (23, 'czxc', 'sfsd', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0', '2016-01-27 10:37:27', NULL),
-(24, 'gdfg', 'fdfdf', '', '', '2016-01-21 00:00:00', '2016-01-14 00:00:00', '0', '2016-01-27 11:18:09', NULL);
+(24, 'gdfg', 'fdfdf', '', '', '2016-01-21 00:00:00', '2016-01-14 00:00:00', '0', '2016-01-27 11:18:09', NULL),
+(25, 'xcx', 'cxcx', 'xcxc', 'cxc@eewq.gfg', '2016-01-27 00:00:00', '2016-01-27 00:00:00', '0', '2016-01-27 16:42:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `fb_patients_feeds` (
   `added_date` datetime NOT NULL,
   `updated_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1065 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1097 ;
 
 --
 -- Dumping data for table `fb_patients_feeds`
@@ -1183,7 +1184,39 @@ INSERT INTO `fb_patients_feeds` (`id`, `feed`, `questionnaire_id`, `patient_id`,
 (1061, '4', 0, 24, 29, '0', '2016-01-27 11:18:10', NULL),
 (1062, '4', 0, 24, 30, '0', '2016-01-27 11:18:10', NULL),
 (1063, '0', 0, 24, 31, '0', '2016-01-27 11:18:10', NULL),
-(1064, '', 0, 24, 32, '0', '2016-01-27 11:18:10', NULL);
+(1064, '', 0, 24, 32, '0', '2016-01-27 11:18:10', NULL),
+(1065, '4', 1, 25, 1, '0', '2016-01-27 16:42:16', NULL),
+(1066, '4', 1, 25, 2, '0', '2016-01-27 16:42:16', NULL),
+(1067, '4', 1, 25, 3, '0', '2016-01-27 16:42:16', NULL),
+(1068, '4', 1, 25, 4, '0', '2016-01-27 16:42:16', NULL),
+(1069, '4', 1, 25, 5, '0', '2016-01-27 16:42:16', NULL),
+(1070, '4', 1, 25, 6, '0', '2016-01-27 16:42:16', NULL),
+(1071, '4', 1, 25, 7, '0', '2016-01-27 16:42:16', NULL),
+(1072, '4', 1, 25, 8, '0', '2016-01-27 16:42:16', NULL),
+(1073, '4', 1, 25, 9, '0', '2016-01-27 16:42:16', NULL),
+(1074, '4', 1, 25, 10, '0', '2016-01-27 16:42:16', NULL),
+(1075, '4', 1, 25, 11, '0', '2016-01-27 16:42:16', NULL),
+(1076, '4', 1, 25, 12, '0', '2016-01-27 16:42:16', NULL),
+(1077, '4', 1, 25, 13, '0', '2016-01-27 16:42:16', NULL),
+(1078, '4', 1, 25, 14, '0', '2016-01-27 16:42:16', NULL),
+(1079, '4', 1, 25, 15, '0', '2016-01-27 16:42:16', NULL),
+(1080, '4', 1, 25, 16, '0', '2016-01-27 16:42:16', NULL),
+(1081, '4', 1, 25, 17, '0', '2016-01-27 16:42:16', NULL),
+(1082, '4', 1, 25, 18, '0', '2016-01-27 16:42:16', NULL),
+(1083, '4', 1, 25, 19, '0', '2016-01-27 16:42:16', NULL),
+(1084, '4', 1, 25, 20, '0', '2016-01-27 16:42:16', NULL),
+(1085, '4', 1, 25, 21, '0', '2016-01-27 16:42:16', NULL),
+(1086, '4', 1, 25, 22, '0', '2016-01-27 16:42:16', NULL),
+(1087, '4', 1, 25, 23, '0', '2016-01-27 16:42:16', NULL),
+(1088, '4', 1, 25, 24, '0', '2016-01-27 16:42:17', NULL),
+(1089, '4', 1, 25, 25, '0', '2016-01-27 16:42:17', NULL),
+(1090, '4', 1, 25, 26, '0', '2016-01-27 16:42:17', NULL),
+(1091, '4', 1, 25, 27, '0', '2016-01-27 16:42:17', NULL),
+(1092, '4', 1, 25, 28, '0', '2016-01-27 16:42:17', NULL),
+(1093, '4', 1, 25, 29, '0', '2016-01-27 16:42:17', NULL),
+(1094, '4', 1, 25, 30, '0', '2016-01-27 16:42:17', NULL),
+(1095, '0', 1, 25, 31, '0', '2016-01-27 16:42:17', NULL),
+(1096, '', 1, 25, 32, '0', '2016-01-27 16:42:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -1219,6 +1252,7 @@ CREATE TABLE IF NOT EXISTS `fb_questionnaire` (
   `welcome_text_ta` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `welcome_text_desc_ta` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `welcome_bg_colour` varchar(255) DEFAULT NULL,
+  `active_user_detail` enum('1','0') NOT NULL DEFAULT '1' COMMENT '1 = active user details , 0 = inactive user details',
   `is_published` enum('1','0') NOT NULL DEFAULT '1' COMMENT '1 = ''Published'', 0 = ''UnPublished''',
   `is_deleted` enum('0','1') NOT NULL DEFAULT '0' COMMENT '0 = not deleted , 1 = deleted',
   `added_date` datetime NOT NULL,
@@ -1230,9 +1264,9 @@ CREATE TABLE IF NOT EXISTS `fb_questionnaire` (
 -- Dumping data for table `fb_questionnaire`
 --
 
-INSERT INTO `fb_questionnaire` (`id`, `name`, `type`, `language_type`, `location`, `thank_image`, `thank_text`, `thank_text_desc`, `thank_text_si`, `thank_text_desc_si`, `thank_text_ta`, `thank_text_desc_ta`, `text_colour`, `text_box_colour`, `btn_colour`, `btn_type`, `btn_text_colour`, `banner_colour`, `banner_txt_colour`, `welcome_image`, `welcome_text`, `welcome_text_desc`, `welcome_text_si`, `welcome_text_desc_si`, `welcome_text_ta`, `welcome_text_desc_ta`, `welcome_bg_colour`, `is_published`, `is_deleted`, `added_date`, `updated_date`) VALUES
-(1, 'In patient feedback questionnaire', '1', 'multi', 2, 'face.png', 'Thank You', 'We value your feedback', 'fsdfsfff', 'fsdf', 'fsf', 'fsdf', '#FFFFFF', '#414141', '#f47b20', '3d', '#FFFFFF', '#f47b20', '#333', 'face.png', 'Welcome to Feedbox', 'Please rate your level of satisfaction by clicking the appropriate face', 'සාදරයෙන් පිළිගනිමු', '', '', '', '#333', '1', '0', '2016-01-18 11:12:50', NULL),
-(16, 'xZXZs', '1', 'multi', 2, 'face.png', 'Thank You', 'We value your feedback', NULL, NULL, NULL, NULL, '#FFFFFF', '#414141', '#f47b20', '3d', '#FFFFFF', '#f47b20', '#333', 'face.png', 'Welcome to Feedbox', 'Please rate your level of satisfaction by clicking the appropriate face', NULL, NULL, NULL, NULL, '#333', '1', '0', '2016-01-27 10:57:19', NULL);
+INSERT INTO `fb_questionnaire` (`id`, `name`, `type`, `language_type`, `location`, `thank_image`, `thank_text`, `thank_text_desc`, `thank_text_si`, `thank_text_desc_si`, `thank_text_ta`, `thank_text_desc_ta`, `text_colour`, `text_box_colour`, `btn_colour`, `btn_type`, `btn_text_colour`, `banner_colour`, `banner_txt_colour`, `welcome_image`, `welcome_text`, `welcome_text_desc`, `welcome_text_si`, `welcome_text_desc_si`, `welcome_text_ta`, `welcome_text_desc_ta`, `welcome_bg_colour`, `active_user_detail`, `is_published`, `is_deleted`, `added_date`, `updated_date`) VALUES
+(1, 'In patient feedback questionnaire', '1', 'multi', 2, 'face.png', 'Thank You', 'We value your feedback', 'fsdfsfff', 'fsdf', 'fsf', 'fsdf', '#FFFFFF', '#414141', '#f47b20', '3d', '#FFFFFF', '#f47b20', '#333', 'face.png', 'Welcome to Feedbox', 'Please rate your level of satisfaction by clicking the appropriate face', 'සාදරයෙන් පිළිගනිමු', '', '', '', '#333', '1', '1', '0', '2016-01-18 11:12:50', NULL),
+(16, 'xZXZs', '1', 'multi', 2, 'face.png', 'Thank You', 'We value your feedback', NULL, NULL, NULL, NULL, '#FFFFFF', '#414141', '#f47b20', '3d', '#FFFFFF', '#f47b20', '#333', 'face.png', 'Welcome to Feedbox', 'Please rate your level of satisfaction by clicking the appropriate face', NULL, NULL, NULL, NULL, '#333', '1', '1', '0', '2016-01-27 10:57:19', NULL);
 
 -- --------------------------------------------------------
 

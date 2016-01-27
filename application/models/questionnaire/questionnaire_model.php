@@ -21,6 +21,7 @@ class Questionnaire_model extends CI_Model
     var $btn_type;
     var $banner_colour;
     var $banner_txt_colour;
+    var $btn_text_colour;
     var $welcome_image;
     var $welcome_text;
     var $welcome_text_desc;
@@ -29,6 +30,7 @@ class Questionnaire_model extends CI_Model
     var $welcome_text_ta;
     var $welcome_text_desc_ta;
     var $welcome_bg_colour;
+    var $active_user_detail;
     var $is_published;
     var $is_deleted;
     var $added_date;
@@ -37,6 +39,24 @@ class Questionnaire_model extends CI_Model
     function __construct()
     {
         parent::__construct();
+    }
+    
+    public function get_active_user_detail() {
+        return $this->active_user_detail;
+    }
+
+    public function set_active_user_detail($active_user_detail) {
+        $this->active_user_detail = $active_user_detail;
+    }
+    
+    public function set_btn_text_colour($btn_text_colour)
+    {
+        $this->btn_text_colour = $btn_text_colour;
+    }
+
+    public function get_btn_text_colour()
+    {
+        return $this->btn_text_colour;
     }
 
     public function set_banner_colour($banner_colour)

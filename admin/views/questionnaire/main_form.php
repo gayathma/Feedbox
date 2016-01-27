@@ -22,15 +22,13 @@
     <div class="col-sm-12 bk">
         <div class="panel">
             <div class="small" id="welcome_screen_div" onclick="$('#add_welcome_modal').modal('show')">
-                <!-- <?php //echo $this->load->view('questionnaire/welcome_screen',$questionnaire);   ?>-->
                 <h3>Click to add Welcome screen here</h3>
 
-                <p>Write a welcome message & add logo image or video to make a greate first impression</p>
+                <p>Write a welcome message & add logo image or video to make a great first impression</p>
             </div>
             <div class="large" id="question_list">
                 <div class="small" id="thank_you_screen_div" onclick="$('#add_question_modal').modal('show')">
                     <h3>Click to add Question here</h3>
-
                 </div>
                 <?php
                 $i = 0;
@@ -54,18 +52,12 @@
                                 </a>
                             </div>
                         </div>
-
-
                     </div>
                 <?php endforeach ?>
-
             </div>
             <div class="small" id="thank_you_screen_div" onclick="$('#add_thankyou_modal').modal('show')">
                 <h3>Click to add Thank you screen here</h3>
-
                 <p>Write a custom thank you message and make it easy for your respondents to share your typeform</p>
-
-                <!-- <?php //echo $this->load->view('questionnaire/thank_you_screen',$questionnaire);   ?>-->
             </div>
         </div>
 
@@ -179,6 +171,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="active_user_detail">Active User Detail Form</label>
+                                <input type="checkbox" <?php if ($questionnaire->active_user_detail == '1') { ?> checked="true" <?php } ?> id="active_user_detail" class="form-control" name="active_user_detail"
+                                       value="<?php echo $questionnaire->active_user_detail; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <input type="hidden" value="<?php echo $questionnaire->id; ?>" name="questionnaire_id"/>
                 </div>

@@ -30,6 +30,7 @@ class Questionnaire_model extends CI_Model
     var $welcome_text_ta;
     var $welcome_text_desc_ta;
     var $welcome_bg_colour;
+    var $active_user_detail;
     var $is_published;
     var $is_deleted;
     var $added_date;
@@ -39,7 +40,15 @@ class Questionnaire_model extends CI_Model
     {
         parent::__construct();
     }
+    
+    public function get_active_user_detail() {
+        return $this->active_user_detail;
+    }
 
+    public function set_active_user_detail($active_user_detail) {
+        $this->active_user_detail = $active_user_detail;
+    }
+    
     public function set_btn_text_colour($btn_text_colour)
     {
         $this->btn_text_colour = $btn_text_colour;
