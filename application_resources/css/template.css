@@ -253,6 +253,14 @@ body {
     color: white;
     margin-right: 20%;
 }
+.lbl-mod{
+    margin: 0;
+    width: 40%;
+}
+.lbl-mod b{
+  float: right;
+    padding: 5px;
+}
 
 .rw-mar-b {
     margin-bottom: 15px;
@@ -317,19 +325,21 @@ body {
 }
 
 .error {
-    border: 2px solid red !important;
+      border: 2px solid red !important;
     background-image: url(../images/cancel45.png) !important;
-    padding-right: 60px !important;
+    padding-right: 10px !important;
     background-repeat: no-repeat;
     background-position: right;
+    background-origin: content-box;
 }
-
+::-webkit-scrollbar { display: none; }
 .valid {
     border: 2px solid green !important;
     background-image: url(../images/correct8.png) !important;
-    padding-right: 60px !important;
+    padding-right: 10px !important;
     background-repeat: no-repeat;
     background-position: right;
+    background-origin: content-box;
 }
 
 .sub-h:before {
@@ -358,6 +368,15 @@ input[type="checkbox"], input[type="radio"] {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
+}
+
+
+.form-control, .input-group-addon {
+  transform: scale(1)!important;
+  -moz-transform: scale(1)!important;
+  -webkit-transform: scale(1)!important;
+  -o-transform: scale(1)!important;
+  -ms-transform: scale(1)!important;
 }
 
 .dropdown .dropdown-menu {
