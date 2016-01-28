@@ -73,13 +73,17 @@
         <ul class="nav pull-right top-menu">
             <!-- user login dropdown start-->
             <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <a data-toggle="dropdown" class="dropdown-toggle-a" href="#">
                     <img height="30" width="30" src="<?php echo base_url(); ?>/uploads/avatar.png">
 
                     <span class="username"><?php echo ucfirst($this->session->userdata('USER_NAME')); ?></span>
                     <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu extended logout">
+
+              
+
+
+                <ul class="dropdown-menu" role="menu" >
                     <div class="log-arrow-up"></div>
                     <?php if ($this->session->userdata('USER_TYPE') != '3') { ?>
                     <li><a href="<?php echo site_url(); ?>/users/manage_users"><i
@@ -111,7 +115,11 @@
     </div>
 
 </div>
-
+<script>
+$(document).ready(function(){
+    $(".dropdown-toggle-a").dropdown();
+});
+</script>
 
 </body>
 </html>

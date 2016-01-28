@@ -27,7 +27,7 @@
                 <p>Write a welcome message & add logo image or video to make a great first impression</p>
             </div>
             <div class="large" id="question_list">
-                <div class="small" id="thank_you_screen_div" onclick="$('#add_question_modal').modal('show')">
+                <div class="small" id="add_new" onclick="$('#add_question_modal').modal('show')">
                     <h3>Click to add Question here</h3>
                 </div>
                 <?php
@@ -176,7 +176,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="active_user_detail">Active User Detail Form</label>
-                                <input type="checkbox" <?php if ($questionnaire->active_user_detail == '1') { ?> checked="true" <?php } ?> id="active_user_detail" class="form-control" name="active_user_detail"
+                                <input type="checkbox" <?php if ($questionnaire->active_user_detail == '1') { ?> checked="true" <?php } ?> id="active_user_detail" class="chk" name="active_user_detail"
                                        value="<?php echo $questionnaire->active_user_detail; ?>">
                             </div>
                         </div>
@@ -464,7 +464,7 @@
                             <?php } ?>
 
                             <div class="form-group cc">
-                                <div class="form-group draggable txtArea">
+                                <div class="form-group draggable txtArea" >
 
                                 </div>
 
@@ -646,7 +646,7 @@
                                     }
                                 });
 
-                                $(".draggable").draggable({revert: "invalid", cursor: "move", helper: "clone", start: function(event, ui) {
+                                $(".draggable").draggable({revert: "invalid", cursor: "move", helper: "clone",opacity: 1, start: function(event, ui) {
                                         $(this).css("z-index", 8000);
                                     }});
                                 $("#droppable").droppable({
