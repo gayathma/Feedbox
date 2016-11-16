@@ -146,16 +146,3 @@ function validateLastStep() {
 
     return true;
 }
-    
-
-
-
-
-
-
-
-
-
-
-
-
