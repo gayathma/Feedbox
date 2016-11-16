@@ -7,11 +7,17 @@ class User_service extends CI_Model {
         $this->load->model('users/user_model');
     }
 
+
+    public function check_user_name($user_name) {
+        $this->db->where('user_name', $user_name);
+        $res = $this->db->get('fb_user');
+        return $res->num_rows();
+    }
+
     function get_all_users() {
         $this->db->select('fb_user.*,fb_locations.name as location');
         $this->db->from('fb_user');
         $this->db->join('fb_locations', 'fb_user.location_id= fb_locations.id');
-        $this->db->where('fb_user.is_deleted', '0');
         $this->db->order_by("fb_user.added_date", "desc");
         $query = $this->db->get();
         return $query->result();
@@ -22,7 +28,17 @@ class User_service extends CI_Model {
         $this->db->from('fb_user');
         $this->db->join('fb_locations', 'fb_user.location_id= fb_locations.id');
         $this->db->where('location_id', $location_id);
-        $this->db->where('fb_user.is_deleted', '0');
+        $this->db->order_by("fb_user.added_date", "desc");
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_users_for_location_with_user($location_id, $user_id) {
+        $this->db->select('fb_user.*,fb_locations.name as location');
+        $this->db->from('fb_user');
+        $this->db->join('fb_locations', 'fb_user.location_id= fb_locations.id');
+        $this->db->where('location_id', $location_id);
+        $this->db->where('fb_user.added_by', $user_id);
         $this->db->order_by("fb_user.added_date", "desc");
         $query = $this->db->get();
         return $query->result();
@@ -107,6 +123,16 @@ class User_service extends CI_Model {
 
     function delete_users($user_id) {
         $data = array('is_deleted' => '1');
+        $this->db->where('id', $user_id);
+        return $this->db->update('fb_user', $data);
+    }
+
+    /*
+    * Active users from database
+    */
+
+    function active_users($user_id) {
+        $data = array('is_deleted' => '0');
         $this->db->where('id', $user_id);
         return $this->db->update('fb_user', $data);
     }

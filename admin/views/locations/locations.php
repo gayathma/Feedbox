@@ -2,16 +2,18 @@
     <div class="col-sm-12">
         <div>
             <header class="panel-heading" style="padding:0;margin:0;">
-                <div class="col-md-4" style="padding:0;margin:0;"><a href="<?php echo site_url(); ?>/home/admin_home"><i
-                            class="fa fa-home"></i>Workspace</a></div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="padding:0;margin:0;"><a
+                        href="<?php echo site_url(); ?>/login/load_login"><i
+                            class="fa fa-arrow-left"></i>Workspace</a></div>
+                <div class="col-md-4" style="text-align: CENTER;">
                     <a class="btn btn-create" style="padding: 2px;
                        width: 30%;" href="#add_location_modal" data-toggle="modal"><i
                             style="font-size: 15px;
                             vertical-align: baseline;" class="fa fa-sign-out logout-icon"></i> Create</a>
                 </div>
                 <div class="col-md-4 rl" style="padding:0;margin:0;"><i
-                        class="fa fa-location-arrow"></i>Locations</div>
+                        class="fa fa-location-arrow"></i>Locations
+                </div>
             </header>
         </div>
     </div>
@@ -149,23 +151,33 @@
 
     //delete location
     function delete_location(id) {
-        if (confirm('Are you sure want to delete this Location?')) {
+        swal({
+                title: "Are you sure?",
+                text: "You want to delete this Location?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#1abc9c",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function () {
 
-            $.ajax({
-                type: "POST",
-                url: site_url + '/locations/delete_location',
-                data: "id=" + id,
-                success: function (msg) {
-                    if (msg == 1) {
-                        $('#lc_' + id).hide();
-                        toastr.success("Successfully deleted !!", "Feedbox");
+                $.ajax({
+                    type: "POST",
+                    url: site_url + '/locations/delete_location',
+                    data: "id=" + id,
+                    success: function (msg) {
+                        if (msg == 1) {
+                            $('#lc_' + id).hide();
+                            swal("Deleted!", "Your location has been deleted.", "success");
+                        }
+                        else if (msg == 2) {
+                            swal("Error!", "Cannot be deleted as it is already assigned.", "error");
+                        }
                     }
-                    else if (msg == 2) {
-                        toastr.error("Cannot be deleted as it is already assigned. !!", "Feedbox");
-                    }
-                }
+                });
             });
-        }
+
     }
 </script>
 

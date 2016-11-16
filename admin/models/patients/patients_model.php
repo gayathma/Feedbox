@@ -4,6 +4,7 @@ class Patients_model extends CI_Model{
     
     var $id;
     var $patient_number;
+    var $ward_no;
     var $patient_name;
     var $patient_contact_no;
     var $patient_email;
@@ -15,6 +16,16 @@ class Patients_model extends CI_Model{
     
     function __construct(){
         parent::__construct();
+    }
+
+    public function set_ward_no($ward_no)
+    {
+        $this->ward_no = $ward_no;
+    }
+
+    public function get_ward_no()
+    {
+        return $this->ward_no;
     }
 
     public function get_added_date()

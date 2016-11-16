@@ -18,6 +18,8 @@ class Login extends CI_Controller {
             //check for super admin
             if($this->session->userdata('USER_TYPE') == '1'){
                 redirect(site_url() . '/home/admin_home');
+            }elseif($this->session->userdata('USER_TYPE') == '3'){
+                redirect(site_url() . '/reports/report_dashboard');
             }else{
                 redirect(site_url() . '/home');
             }

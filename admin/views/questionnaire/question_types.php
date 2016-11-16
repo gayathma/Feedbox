@@ -2,8 +2,9 @@
     <div class="col-sm-12">
         <div>
             <header class="panel-heading" style="padding:0;margin:0;">
-                <div class="col-md-4" style="padding:0;margin:0;"><a href="<?php echo site_url(); ?>"><i
-                            class="fa fa-home"></i>Workspace</a></div>
+                <div class="col-md-4" style="padding:0;margin:0;"><a
+                        href="<?php echo site_url(); ?>/login/load_login"><i
+                            class="fa fa-arrow-left"></i>Workspace</a></div>
                 <div class="col-md-4" style="text-align:center">
                     <a class="btn btn-create" style="padding: 2px;
     width: 30%;" href="#add_question_ty_modal" data-toggle="modal"><i
@@ -152,23 +153,33 @@
 
     //delete question type
     function delete_question_type(id) {
-        if (confirm('Are you sure want to delete this Question Type?')) {
+        swal({
+                title: "Are you sure?",
+                text: "You want to delete this Question Type?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#1abc9c",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function () {
 
-            $.ajax({
-                type: "POST",
-                url: site_url + '/questionnaire/delete_question_type',
-                data: "id=" + id,
-                success: function (msg) {
-                    if (msg == 1) {
-                        $('#q_t_' + id).hide();
-                        toastr.success("Successfully deleted !!", "Feedbox");
+                $.ajax({
+                    type: "POST",
+                    url: site_url + '/questionnaire/delete_question_type',
+                    data: "id=" + id,
+                    success: function (msg) {
+                        if (msg == 1) {
+                            $('#q_t_' + id).hide();
+                            swal("Deleted!", "Your question type has been deleted.", "success");
+                        }
+                        else if (msg == 2) {
+                            swal("Error!", "Cannot be deleted as it is already assigned.", "error");
+                        }
                     }
-                    else if (msg == 2) {
-                        toastr.error("Cannot be deleted as it is already assigned. !!", "Feedbox");
-                    }
-                }
+                });
+
             });
-        }
     }
 </script>
 

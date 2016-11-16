@@ -27,10 +27,10 @@
             <label for="location_id">Location<span class="mandatory">*</span></label>
             <?php  if ($this->session->userdata('USER_TYPE') != '1') { ?>
                 <input type="hidden"
-                                                                                 name="location_id"
-                                                                                 value="<?php echo $this->session->userdata(
-                                                                                     'USER_LOCATION'
-                                                                                 ); ?>"> <?php } ?>
+                       name="location_id"
+                       value="<?php echo $this->session->userdata(
+                           'USER_LOCATION'
+                       ); ?>"> <?php } ?>
             <select class="form-control" name="location_id" <?php  if (
                 $this->session->userdata('USER_TYPE') != '1'
             ) {
@@ -52,18 +52,19 @@
 
         <div class="form-group">
             <label for="user_name">User Name<span class="mandatory">*</span></label>
-            <input id="user_name" class="form-control" name="user_name" type="text"
+            <input id="user_name_edit" class="form-control" name="user_name" type="text"
                    value="<?php echo $user->user_name; ?>">
+            <span id="username_alert_edit"></span>
         </div>
 
         <div class="form-group">
             <label for="password_edit">Password<span class="mandatory">*</span></label>
-            <input id="password_edit" class="form-control" name="password" type="text">
+            <input id="password_edit" class="form-control" name="password" type="password">
         </div>
 
         <div class="form-group">
             <label for="re_password">Confirm Password<span class="mandatory">*</span></label>
-            <input id="re_password" class="form-control" name="re_password" type="text">
+            <input id="re_password" class="form-control" name="re_password" type="password">
         </div>
         <input type="hidden"
                name="user_id"
@@ -78,6 +79,18 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $(document).on('change', '#user_name_edit', function () {
+            $.post(site_url + "/users/check_user_name", "username=" + $(this).val(), function (msg) {
+                if (msg == '1') {
+                    $('#username_alert_edit').html("");
+                } else if (msg == '0') {
+                    $('#username_alert_edit').html("<strong style=' color: red;'>Username not available. Try again !</strong>");
+                    return false;
+                }
+
+            });
+        });
 
         //add user form validation
         $("#edit_user_form").validate({
@@ -104,6 +117,7 @@
                 }
 
             }, submitHandler: function (form) {
+
                 $.post(site_url + '/users/update_user', $('#edit_user_form').serialize(), function (msg) {
                     if (msg == 1) {
 
@@ -115,6 +129,7 @@
                         toastr.error("Error Occurred !!", "Feedbox");
                     }
                 });
+
             }
         });
     });

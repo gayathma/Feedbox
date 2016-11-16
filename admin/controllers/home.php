@@ -28,18 +28,22 @@ class Home extends CI_Controller
 
     public function admin_home()
     {
-        $questionnaire_service = new Questionnaire_service();
-        $settings_service      = new Settings_service();
-        $locations_service     = new Locations_service();
+        if ($this->session->userdata('USER_TYPE') == '1') {
+            $questionnaire_service = new Questionnaire_service();
+            $settings_service      = new Settings_service();
+            $locations_service     = new Locations_service();
 
-        $setting = $settings_service->get_settings_by_slug('site_url');
+            $setting = $settings_service->get_settings_by_slug('site_url');
 
-        $data['languages']  = $this->config->item('LANGUAGES');
-        $data['locations']      = $locations_service->get_locations();
-        $data['domain_url'] = $setting->value;
+            $data['languages']  = $this->config->item('LANGUAGES');
+            $data['locations']  = $locations_service->get_locations();
+            $data['domain_url'] = $setting->value;
 
-        $partials = array('content' => 'dashboard/admin_dashboard_view'); //load the view
-        $this->template->load('template/main_template', $partials, $data); //load teh template
+            $partials = array('content' => 'dashboard/admin_dashboard_view'); //load the view
+            $this->template->load('template/main_template', $partials, $data); //load teh template
+        } else {
+            $this->template->load('template/denied');
+        }
     }
 
     public function index()

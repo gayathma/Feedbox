@@ -47,6 +47,11 @@ class Questionnaire_service extends CI_Model
         return $this->db->update('fb_questionnaire', $data);
     }
 
+    function delete_questionnaire($id) {
+        $data = array('is_deleted' => '1');
+        $this->db->where('id', $id);
+        return $this->db->update('fb_questionnaire', $data);
+    }
 
 }
 

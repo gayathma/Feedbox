@@ -4,11 +4,9 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Questionnaire extends CI_Controller
-{
+class Questionnaire extends CI_Controller {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
 
         if (!$this->session->userdata('USER_LOGGED_IN')) {
@@ -25,8 +23,7 @@ class Questionnaire extends CI_Controller
         }
     }
 
-    function save_questionnaire()
-    {
+    function save_questionnaire() {
 
         $questionnaire_model   = new Questionnaire_model();
         $questionnaire_service = new Questionnaire_service();
@@ -49,9 +46,16 @@ class Questionnaire extends CI_Controller
         $questionnaire_model->set_text_box_colour('#414141');
         $questionnaire_model->set_welcome_text('Welcome to Feedbox');
         $questionnaire_model->set_welcome_text_desc(
-            'Please rate your level of satisfaction by clicking the appropriate face'
+                'Please rate your level of satisfaction by clicking the appropriate face'
         );
-        $questionnaire_model->set_active_user_detail($this->input->post('active_user_detail', TRUE));
+        $questionnaire_model->set_active_user_detail('1');
+        $questionnaire_model->set_patient_no_field('1');
+        $questionnaire_model->set_name_field('1');
+        $questionnaire_model->set_discharge_date_field('0');
+        $questionnaire_model->set_admission_date_field('0');
+        $questionnaire_model->set_ward_no_field('0');
+        $questionnaire_model->set_email_field('1');
+        $questionnaire_model->set_contact_field('1');
         $questionnaire_model->set_added_date(date("Y-m-d H:i:s"));
         $questionnaire_model->set_is_deleted('0');
         $questionnaire_model->set_is_published('1');
@@ -59,8 +63,7 @@ class Questionnaire extends CI_Controller
         echo $questionnaire_service->save_questionnaire($questionnaire_model);
     }
 
-    public function main_form($questionnaire_id)
-    {
+    public function main_form($questionnaire_id) {
         $questionnaire_service  = new Questionnaire_service();
         $questions_service      = new Questions_service();
         $questions_type_service = new Question_types_service();
@@ -68,7 +71,7 @@ class Questionnaire extends CI_Controller
         $data['questions']      = $questions_service->get_all_questions($questionnaire_id);
         $data['questionnaire']  = $questionnaire_service->get_questionnaire_by_id($questionnaire_id);
         $data['question_types'] = $questions_type_service->get_published_question_types(
-            $this->session->userdata('USER_LOCATION')
+                $this->session->userdata('USER_LOCATION')
         );
 
 
@@ -76,37 +79,34 @@ class Questionnaire extends CI_Controller
         $this->template->load('template/main_template', $partials, $data); //load teh template
     }
 
-    function load_edit_question_content()
-    {
+    function load_edit_question_content() {
         $questions_service      = new Questions_service();
         $questionnaire_service  = new Questionnaire_service();
         $questions_type_service = new Question_types_service();
 
         $data['question']       = $questions_service->get_question_by_id(trim($this->input->post('q_id', TRUE)));
         $data['questionnaire']  = $questionnaire_service->get_questionnaire_by_id(
-            trim($this->input->post('questionnaire_id', TRUE))
+                trim($this->input->post('questionnaire_id', TRUE))
         );
         $data['question_types'] = $questions_type_service->get_published_question_types(
-            $this->session->userdata('USER_LOCATION')
+                $this->session->userdata('USER_LOCATION')
         );
 
         echo $this->load->view('questionnaire/edit_question', $data, TRUE);
     }
 
-    public function question_types()
-    {
+    public function question_types() {
         $question_types_service = new Question_types_service();
 
         $data['question_types'] = $question_types_service->get_published_question_types(
-            $this->session->userdata('USER_LOCATION')
+                $this->session->userdata('USER_LOCATION')
         );
 
         $partials = array('content' => 'questionnaire/question_types'); //load the view
         $this->template->load('template/main_template', $partials, $data); //load teh template
     }
 
-    function save_questions_type()
-    {
+    function save_questions_type() {
 
         $questions_type_model   = new Question_types_model();
         $questions_type_service = new Question_types_service();
@@ -125,8 +125,7 @@ class Questionnaire extends CI_Controller
     /**
      * This is to delete a question type
      */
-    function delete_question_type()
-    {
+    function delete_question_type() {
 
         $question_type_service = new Question_types_service();
 
@@ -136,8 +135,7 @@ class Questionnaire extends CI_Controller
     /**
      * This is to delete a question
      */
-    function delete_question()
-    {
+    function delete_question() {
 
         $questions_service = new Questions_service();
 
@@ -145,14 +143,23 @@ class Questionnaire extends CI_Controller
     }
 
     /**
+     * This is to delete a questionnaire
+     */
+    function delete_questionnaire() {
+
+        $questionnaire_service = new Questionnaire_service();
+
+        echo $questionnaire_service->delete_questionnaire(trim($this->input->post('id', TRUE)));
+    }
+
+    /**
      * Edit question type pop up content set up and then send .
      */
-    function load_edit_question_type_content()
-    {
+    function load_edit_question_type_content() {
         $question_type_service = new Question_types_service();
 
         $data['question_type'] = $question_type_service->get_question_type_by_id(
-            trim($this->input->post('ques_ty_id', TRUE))
+                trim($this->input->post('ques_ty_id', TRUE))
         );
 
         echo $this->load->view('questionnaire/question_type_edit_pop_up', $data, TRUE);
@@ -162,8 +169,7 @@ class Questionnaire extends CI_Controller
      * This function is to update the question type details
      */
 
-    function edit_question_type()
-    {
+    function edit_question_type() {
 
         $questions_type_model   = new Question_types_model();
         $questions_type_service = new Question_types_service();
@@ -177,8 +183,7 @@ class Questionnaire extends CI_Controller
         echo $questions_type_service->update_question_type($questions_type_model);
     }
 
-    function save_question()
-    {
+    function save_question() {
         $questions_model   = new Questions_model();
         $questions_service = new Questions_service();
 
@@ -202,8 +207,7 @@ class Questionnaire extends CI_Controller
         echo $questions_service->save_question($questions_model);
     }
 
-    function edit_question()
-    {
+    function edit_question() {
         $questions_model   = new Questions_model();
         $questions_service = new Questions_service();
 
@@ -226,8 +230,7 @@ class Questionnaire extends CI_Controller
         echo $questions_service->update_question($questions_model);
     }
 
-    function save_thank_you_text()
-    {
+    function save_thank_you_text() {
         $questionnaire_service = new Questionnaire_service();
 
         $data = array(
@@ -242,13 +245,11 @@ class Questionnaire extends CI_Controller
         $questionnaire_service->update_questionnaire($data, $this->input->post('questionnaire_id', TRUE));
 
         $data['questionnaire'] = $questionnaire_service->get_questionnaire_by_id(
-            $this->input->post('questionnaire_id', TRUE)
+                $this->input->post('questionnaire_id', TRUE)
         );
-
     }
 
-    function save_welcome()
-    {
+    function save_welcome() {
         $questionnaire_service = new Questionnaire_service();
 
         $data = array(
@@ -263,36 +264,60 @@ class Questionnaire extends CI_Controller
         $questionnaire_service->update_questionnaire($data, $this->input->post('questionnaire_id', TRUE));
 
         $data['questionnaire'] = $questionnaire_service->get_questionnaire_by_id(
-            $this->input->post('questionnaire_id', TRUE)
+                $this->input->post('questionnaire_id', TRUE)
         );
-
     }
 
-    function save_theme()
-    {
+    function save_theme() {
         $questionnaire_service = new Questionnaire_service();
-
-        $data = array(
-            'text_colour'       => $this->input->post('text_colour', TRUE),
-            'banner_colour'     => $this->input->post('banner_colour', TRUE),
-            'banner_txt_colour' => $this->input->post('banner_txt_colour', TRUE),
-            'btn_colour'        => $this->input->post('btn_colour', TRUE),
-            'btn_type'          => $this->input->post('btn_type', TRUE),
-            'text_box_colour'   => $this->input->post('text_box_colour', TRUE),
-            'welcome_bg_colour' => $this->input->post('welcome_bg_colour', TRUE),
-            'btn_text_colour'   => $this->input->post('btn_text_colour', TRUE)
-        );
+        if ($this->input->post('active_user_detail', TRUE) == '') {
+            $data = array(
+                'text_colour'          => $this->input->post('text_colour', TRUE),
+                'banner_colour'        => $this->input->post('banner_colour', TRUE),
+                'banner_txt_colour'    => $this->input->post('banner_txt_colour', TRUE),
+                'btn_colour'           => $this->input->post('btn_colour', TRUE),
+                'btn_type'             => $this->input->post('btn_type', TRUE),
+                'text_box_colour'      => $this->input->post('text_box_colour', TRUE),
+                'welcome_bg_colour'    => $this->input->post('welcome_bg_colour', TRUE),
+                'btn_text_colour'      => $this->input->post('btn_text_colour', TRUE),
+                'active_user_detail'   => '0',
+                'patient_no_field'     => '0',
+                'name_field'           => '0',
+                'email_field'          => '0',
+                'contact_field'        => '0',
+                'admission_date_field' => '0',
+                'discharge_date_field' => '0',
+                'ward_no_field'        => '0'
+            );
+        } else {
+            $data = array(
+                'text_colour'          => $this->input->post('text_colour', TRUE),
+                'banner_colour'        => $this->input->post('banner_colour', TRUE),
+                'banner_txt_colour'    => $this->input->post('banner_txt_colour', TRUE),
+                'btn_colour'           => $this->input->post('btn_colour', TRUE),
+                'btn_type'             => $this->input->post('btn_type', TRUE),
+                'text_box_colour'      => $this->input->post('text_box_colour', TRUE),
+                'welcome_bg_colour'    => $this->input->post('welcome_bg_colour', TRUE),
+                'btn_text_colour'      => $this->input->post('btn_text_colour', TRUE),
+                'active_user_detail'   => '1',
+                'patient_no_field'     => ($this->input->post('patient_no_field', TRUE) != '') ? '1' : '0',
+                'name_field'           => '1',
+                'email_field'          => ($this->input->post('email_field', TRUE) != '') ? '1' : '0',
+                'contact_field'        => ($this->input->post('contact_field', TRUE) != '') ? '1' : '0',
+                'admission_date_field' => ($this->input->post('admission_date_field', TRUE) != '') ? '1' : '0',
+                'discharge_date_field' => ($this->input->post('discharge_date_field', TRUE) != '') ? '1' : '0',
+                'ward_no_field'        => ($this->input->post('ward_no_field', TRUE) != '') ? '1' : '0'
+            );
+        }
 
         $questionnaire_service->update_questionnaire($data, $this->input->post('questionnaire_id', TRUE));
 
         $data['questionnaire'] = $questionnaire_service->get_questionnaire_by_id(
-            $this->input->post('questionnaire_id', TRUE)
+                $this->input->post('questionnaire_id', TRUE)
         );
-
     }
 
-    function upload_thank_you_image($id)
-    {
+    function upload_thank_you_image($id) {
 
         $uploaddir  = './uploads/';
         $unique_tag = 'th';
@@ -315,8 +340,7 @@ class Questionnaire extends CI_Controller
         }
     }
 
-    function upload_welcome_image($id)
-    {
+    function upload_welcome_image($id) {
 
         $uploaddir  = './uploads/';
         $unique_tag = 'wl';

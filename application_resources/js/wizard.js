@@ -2,6 +2,14 @@ searchVisible = 0;
 transparent = true;
 
 $(document).ready(function () {
+    $("input.cbtn").click(function () {
+        $('body,html').animate({
+                scrollTop: 0
+            }, scroll_top_duration
+        );
+    });
+
+
     /*  Activate the tooltips      */
     $('[rel="tooltip"]').tooltip();
 
@@ -102,36 +110,6 @@ $(document).ready(function () {
 
 });
 
-function validateFirstStep() {
-
-    $("#feed_form").validate({
-        rules: {
-            patient_number: 'required',
-            patient_name: 'required',
-            patient_email: 'email'
-        },
-        messages: {
-            patient_number: "Please enter your Patient Number",
-            patient_name: "Please enter your Name",
-            patient_email: "Please enter a valid Email Address"
-        }, highlight: function (element, errorClass, validClass) {
-            $(element).addClass(errorClass).removeClass(validClass);
-
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass(errorClass).addClass(validClass);
-        },
-        errorPlacement: function (error, element) {
-        }
-    });
-
-    if (!$("#feed_form").valid()) {
-        //form is invalid
-        return false;
-    }
-
-    return true;
-}
 
 function validateSecondStep() {
 

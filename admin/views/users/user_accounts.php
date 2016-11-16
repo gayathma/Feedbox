@@ -2,16 +2,19 @@
     <div class="col-sm-12">
         <div>
             <header class="panel-heading" style="padding:0;margin:0;">
-                <div class="col-md-4" style="padding:0;margin:0;"><a href="<?php echo site_url(); ?>/home/admin_home"><i
-                            class="fa fa-home"></i>Workspace</a></div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="padding:0;margin:0;"><a
+                        href="<?php echo site_url(); ?>/login/load_login"><i
+                            class="fa fa-arrow-left"></i>Workspace</a></div>
+
+                <div class="col-md-4" style="text-align: CENTER;">
                     <a class="btn btn-create" style="padding: 2px;
                        width: 30%;" href="#add_user_modal" data-toggle="modal"><i
                             style="font-size: 15px;
                             vertical-align: baseline;" class="fa fa-sign-out logout-icon"></i> Create</a>
                 </div>
                 <div class="col-md-4 rl" style="padding:0;margin:0;"><i
-                        class="fa fa-user"></i>User Accounts</div>
+                        class="fa fa-user"></i>User Accounts
+                </div>
             </header>
         </div>
     </div>
@@ -30,6 +33,7 @@
                             <th>User Type</th>
                             <th>Email</th>
                             <th>Location</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -44,12 +48,12 @@
                                 <td><?php echo $result->user_name; ?></td>
                                 <td>
                                     <?php if ($result->user_type == '1') { ?>
-                                        <span class="label label-success">Super Admin</span>
+                                        <span class="label label-primary">Super Admin</span>
                                     <?php
                                     } else {
                                         if ($result->user_type == '2') {
                                             ?>
-                                            <span class="label label-primary">Admin</span>
+                                            <span class="label label-success">Admin</span>
                                         <?php } else { ?>
                                             <span class="label label-info">Report Users</span>
                                         <?php
@@ -58,16 +62,29 @@
                                 </td>
                                 <td><?php echo $result->email; ?></td>
                                 <td><?php echo $result->location; ?></td>
+                                <td>
+                                    <?php if ($result->is_deleted == '0') { ?>
+                                        <span class="label label-success">Active</span>
+                                    <?php } else { ?>
+                                        <span class="label label-primary">Deleted</span>
+
+                                        <a class="bt"
+                                           onclick="active_user(<?php echo $result->id; ?>)"><i
+                                                class="fa fa-check" title="Make User Active"></i></a>
+                                    <?php }?>
+                                </td>
 
                                 <td align="center">
-                                    <a class="bt"
-                                       onclick="display_user_pop_up(<?php echo $result->id; ?>)"><i
-                                            class="fa fa-pencil" title="Update"></i></a>
-                                    <?php if ($result->id != $this->session->userdata('USER_ID')) { ?>
+                                    <?php if ($result->is_deleted == '0') { ?>
                                         <a class="bt"
-                                           onclick="delete_user(<?php echo $result->id; ?>)"><i
-                                                class="fa fa-trash-o " title="" title="Remove"></i></a>
-                                    <?php } ?>
+                                           onclick="display_user_pop_up(<?php echo $result->id; ?>)"><i
+                                                class="fa fa-pencil" title="Update"></i></a>
+                                        <?php if ($result->id != $this->session->userdata('USER_ID')) { ?>
+                                            <a class="bt"
+                                               onclick="delete_user(<?php echo $result->id; ?>)"><i
+                                                    class="fa fa-trash-o " title="" title="Remove"></i></a>
+                                        <?php } ?>
+                                    <?php }?>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -137,16 +154,17 @@
                     <div class="form-group">
                         <label for="user_name">User Name<span class="mandatory">*</span></label>
                         <input id="user_name" class="form-control" name="user_name" type="text">
+                        <span id="username_alert"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="password">Password<span class="mandatory">*</span></label>
-                        <input id="password" class="form-control" name="password" type="text">
+                        <input id="password" class="form-control" name="password" type="password">
                     </div>
 
                     <div class="form-group">
                         <label for="re_password">Confirm Password<span class="mandatory">*</span></label>
-                        <input id="re_password" class="form-control" name="re_password" type="text">
+                        <input id="re_password" class="form-control" name="re_password" type="password">
                     </div>
 
                 </div>
@@ -172,6 +190,17 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $(document).on('change', '#user_name', function () {
+            $.post(site_url + "/users/check_user_name", "username=" + $(this).val(), function (msg) {
+                if (msg == '1') {
+                    $('#username_alert').html("");
+                } else if (msg == '0') {
+                    $('#username_alert').html("<strong style=' color: red;'>Username not available. Try again !</strong>");
+                    return false;
+                }
+
+            });
+        });
 
         $('#user_table').dataTable();
 
@@ -200,17 +229,27 @@
                 }
 
             }, submitHandler: function (form) {
-                $.post(site_url + '/users/add_user', $('#add_user_form').serialize(), function (msg) {
-                    if (msg == 1) {
+                $.post(site_url + "/users/check_user_name", "username=" + $('#user_name').val(), function (msg) {
+                    if (msg == '1') {
+                        $('#username_alert').html("");
+                        $.post(site_url + '/users/add_user', $('#add_user_form').serialize(), function (msg) {
+                            if (msg == 1) {
 
-                        add_user_form.reset();
-                        toastr.success("Successfully saved !!", "Feedbox");
-                        setTimeout("location.href = site_url+'/users/manage_users';", 100);
+                                add_user_form.reset();
+                                toastr.success("Successfully saved !!", "Feedbox");
+                                setTimeout("location.href = site_url+'/users/manage_users';", 100);
 
-                    } else {
-                        toastr.error("Error Occurred !!", "Feedbox");
+                            } else {
+                                toastr.error("Error Occurred !!", "Feedbox");
+                            }
+                        });
+                    } else if (msg == '0') {
+                        $('#username_alert').html("<strong style=' color: red;'>Username not available. Try again !</strong>");
+                        return false;
                     }
+
                 });
+
             }
         });
     });
@@ -228,23 +267,51 @@
 
     //delete user
     function delete_user(id) {
-        if (confirm('Are you sure want to delete this User?')) {
 
-            $.ajax({
-                type: "POST",
-                url: site_url + '/users/delete_users',
-                data: "id=" + id,
-                success: function (msg) {
-                    if (msg == 1) {
-                        $('#usr_' + id).hide();
-                        toastr.success("Successfully deleted !!", "Feedbox");
+        swal({
+                title: "Are you sure?",
+                text: "You want to delete this User?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#1abc9c",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: site_url + '/users/delete_users',
+                    data: "id=" + id,
+                    success: function (msg) {
+                        if (msg == 1) {
+                            swal("Deleted!", "Your user has been deleted.", "success");
+                            setTimeout("location.reload();", 1000);
+                        }
+                        else if (msg == 2) {
+                            swal("Error!", "Cannot be deleted as it is already assigned.", "error");
+                        }
                     }
-                    else if (msg == 2) {
-                        toastr.error("Cannot be deleted as it is already assigned. !!", "Feedbox");
-                    }
-                }
+                });
             });
-        }
+    }
+
+
+    function active_user(user_id) {
+        $.ajax({
+            type: "POST",
+            url: site_url + '/users/user_active',
+            data: "id=" + user_id,
+            success: function (msg) {
+                if (msg == 1) {
+                    swal("Activated!", "Your user has been activated.", "success");
+                    setTimeout("location.reload();", 1500);
+                }
+                else if (msg == 2) {
+                    swal("Error!", "Error.", "error");
+                }
+            }
+        });
     }
 </script>
 

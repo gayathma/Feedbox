@@ -31,6 +31,12 @@ class Questionnaire_model extends CI_Model
     var $welcome_text_desc_ta;
     var $welcome_bg_colour;
     var $active_user_detail;
+    var $patient_no_field;
+    var $name_field;
+    var $email_field;
+    var $contact_field;
+    var $admission_date_field;
+    var $discharge_date_field;
     var $is_published;
     var $is_deleted;
     var $added_date;
@@ -41,6 +47,54 @@ class Questionnaire_model extends CI_Model
         parent::__construct();
     }
     
+    public function get_patient_no_field() {
+        return $this->patient_no_field;
+    }
+
+    public function set_patient_no_field($patient_no_field) {
+        $this->patient_no_field = $patient_no_field;
+    }
+
+    public function get_name_field() {
+        return $this->name_field;
+    }
+
+    public function set_name_field($name_field) {
+        $this->name_field = $name_field;
+    }
+
+    public function get_email_field() {
+        return $this->email_field;
+    }
+
+    public function set_email_field($email_field) {
+        $this->email_field = $email_field;
+    }
+
+    public function get_contact_field() {
+        return $this->contact_field;
+    }
+
+    public function set_contact_field($contact_field) {
+        $this->contact_field = $contact_field;
+    }
+
+    public function get_admission_date_field() {
+        return $this->admission_date_field;
+    }
+
+    public function set_admission_date_field($admission_date_field) {
+        $this->admission_date_field = $admission_date_field;
+    }
+
+    public function get_discharge_date_field() {
+        return $this->discharge_date_field;
+    }
+
+    public function set_discharge_date_field($discharge_date_field) {
+        $this->discharge_date_field = $discharge_date_field;
+    }
+   
     public function get_active_user_detail() {
         return $this->active_user_detail;
     }

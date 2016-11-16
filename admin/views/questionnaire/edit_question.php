@@ -29,13 +29,19 @@
                                   onkeyup="fill_question(this)"><?php echo $question->question_name;?></textarea>
                     </div>
 
-                    <?php if ($questionnaire->language_type == 'multi') { ?>
+                    <?php if ($questionnaire->language_type == 'multi' || $questionnaire->language_type == 'si'
+                    ) {
+                        ?>
                         <div class="form-group">
                             <label for="question_name_si">Question (Sinhala)</label>
                             <textarea id="question_name_si" class="form-control"
                                       name="question_name_si"><?php echo $question->question_name_si;?></textarea>
                         </div>
-
+                    <?php
+                    }
+                    if ($questionnaire->language_type == 'multi' || $questionnaire->language_type == 'ta'
+                    ) {
+                        ?>
                         <div class="form-group">
                             <label for="question_name_ta">Question (Tamil)</label>
                             <textarea id="question_name_ta" class="form-control"
@@ -59,7 +65,8 @@
 
                         </div>
 
-                        <input type="text" name="answer_type" id="answer_type_edit" style="visibility: hidden" value="<?php echo $question->answer_type ;?>"/>
+                        <input type="text" name="answer_type" id="answer_type_edit" style="visibility: hidden"
+                               value="<?php echo $question->answer_type; ?>"/>
 
                     </div>
                 </div>

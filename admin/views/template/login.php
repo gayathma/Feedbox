@@ -33,7 +33,7 @@
     <body class="login-body">
         <header class="header">
             <a class="logo">Feedbox</a>
-            <a class="logout">Log in</a>
+            <a class="logout" onclick="show_login()">Log in</a>
         </header>
 
         <div class="container">

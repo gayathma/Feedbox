@@ -20,11 +20,13 @@ class Questionnaire_service extends CI_Model
 
     public function get_questionnaire_by_id($id)
     {
-        $res = $this->db->get_where(
-            'fb_questionnaire',
-            array('is_deleted' => '0', 'id' => $id)
-        );
-        return $res->row();
+        $this->db->select('fb_questionnaire.*,fb_locations.type as loc_type');
+        $this->db->from('fb_questionnaire');
+        $this->db->join('fb_locations', 'fb_locations.id = fb_questionnaire.location');
+        $this->db->where('fb_questionnaire.is_deleted','0');
+        $this->db->where('fb_questionnaire.id', $id);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     public function get_latest_questionnaire()

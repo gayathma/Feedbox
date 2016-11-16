@@ -22,13 +22,17 @@ class Locations extends CI_Controller
 
     public function manage_locations()
     {
-        $locations_service = new Locations_service();
+        if ($this->session->userdata('USER_TYPE') == '1') {
+            $locations_service = new Locations_service();
 
-        $data['locations']      = $locations_service->get_locations();
-        $data['business_types'] = $this->config->item('BUSINESS_TYPES');
+            $data['locations']      = $locations_service->get_locations();
+            $data['business_types'] = $this->config->item('BUSINESS_TYPES');
 
-        $partials = array('content' => 'locations/locations'); //load the view
-        $this->template->load('template/main_template', $partials, $data); //load teh template
+            $partials = array('content' => 'locations/locations'); //load the view
+            $this->template->load('template/main_template', $partials, $data); //load teh template
+        } else {
+            $this->template->load('template/denied');
+        }
     }
 
     function save_location()

@@ -1,11 +1,15 @@
 <?php
 $lang['patient_no_place_holder']           = "Please enter your Patient Number";
+$lang['patient_name_place_holder']         = "Please enter your Name";
+$lang['verify_txt']                        = "Please verify below details,";
 $lang['start_btn_txt']                     = "START";
 $lang['next_btn_txt']                      = "NEXT";
 $lang['prev_btn_txt']                      = "PREVIOUS";
 $lang['finish_btn_txt']                    = "VERIFY";
 $lang['txt_type_here']                     = "type here....";
+$lang['cus_detail_txt']                    = "Customer Details";
 $lang['patient_detail_txt']                = "Patient Details";
+$lang['ward_no_txt']                       = "Ward No";
 $lang['patient_detail_name_txt']           = "Name";
 $lang['patient_detail_admission_date_txt'] = "Date of Admission";
 $lang['patient_detail_contact_txt']        = "Contact No";

@@ -38,11 +38,22 @@
                                     <div class="cc-selector">
 
                                         <?php foreach ($emotions as $key => $emotion): ?>
+                                            <?php
+                                            $cls = "";
+                                            if($key == '1'){
+                                                $cls = 'Poor';
+                                            }else if($key == '2'){
+                                                $cls = 'Satisfactory';
+                                            }else if($key == '3'){
+                                                $cls = 'Good';
+                                            }else if($key == '4'){
+                                                $cls = 'Excellent';
+                                            }
+
+                                            ?>
                                             <div class="op">
                                                 <input id="<?php
-                                                echo $this->lang->line(
-                                                    strtolower($emotion) . '_lbl'
-                                                ) . $question['id'];
+                                                echo $cls . '_lbl' . $question['id'];
                                                 ?>" type="radio"
                                                        name="answer[<?php echo $question['id']; ?>]" <?php
                                                     if ($key == 4
@@ -51,18 +62,14 @@
                                                        value="<?php echo $key; ?>"/>
 
                                                 <label class="drinkcard-cc <?php
-                                                echo $this->lang->line(
-                                                    strtolower($emotion) . '_lbl'
-                                                );
+                                                echo $cls;
                                                 ?>" for="<?php
-                                                echo $this->lang->line(
-                                                    strtolower($emotion) . '_lbl'
-                                                ) . $question['id'];
+                                                echo $cls . '_lbl' . $question['id'];
                                                 ?>"></label>
 
                                                 <p><?php
                                                     echo $this->lang->line(
-                                                        strtolower($emotion) . '_lbl'
+                                                        strtolower($cls) . '_lbl'
                                                     );
                                                     ?></p>
                                             </div>

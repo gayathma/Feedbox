@@ -2,8 +2,8 @@
     <div class="col-sm-12">
         <div>
             <header class="panel-heading" style="padding:0;margin:0;">
-                <div class="col-md-4" style="padding:0;margin:0;"><a href="<?php echo site_url(); ?>"><i
-                            class="fa fa-home"></i>Workspace</a></div>
+                <div class="col-md-4" style="padding:0;margin:0;"><a href="<?php echo site_url(); ?>/login/load_login"><i
+                            class="fa fa-arrow-left"></i>Workspace</a></div>
                 <div class="col-md-4">
                     &nbsp;
                 </div>

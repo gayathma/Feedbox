@@ -11,7 +11,7 @@ $config['EMOTICON_TYPES'] = array(1 => 'Poor', 2 => 'Satisfactory', 3 => 'Good',
 $config['LANGUAGES'] = array('multi' => 'Multilingual' ,'en' => 'English' ,'ta' => 'Tamil' ,'si' => 'Sinhala');
 
 //Business Types
-$config['BUSINESS_TYPES'] = array('hotel' => 'Hotel' ,'hospital' => 'Hospital' ,'travel' => 'Travel');
+$config['BUSINESS_TYPES'] = array('consumer' => 'Consumer' ,'healthcare' => 'Healthcare' ,'leisure' => 'Leisure','transportation' => 'Transportation','other' => 'Other');
 
 //User Types
 $config['USER_TYPES'] = array('1' => 'Super Admin' ,'2' => 'Admin' ,'3' => 'Report User');

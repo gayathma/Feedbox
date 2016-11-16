@@ -31,7 +31,7 @@ class Users extends CI_Controller {
         }else if ($this->session->userdata('USER_TYPE') == '2') { //if admin users belongs to his location
             $user_types = $this->config->item('USER_TYPES');
             unset($user_types[1]);
-            $data['results'] = $user_service->get_users_for_location($this->session->userdata('USER_LOCATION'));
+            $data['results'] = $user_service->get_users_for_location_with_user($this->session->userdata('USER_LOCATION'),$this->session->userdata('USER_ID'));
         }
         
 
@@ -80,6 +80,16 @@ class Users extends CI_Controller {
     function delete_users() {
         $user_service = new User_service();
         echo $user_service->delete_users(trim($this->input->post('id', TRUE)));
+
+    }
+
+    /*
+    * Function to active user
+    */
+
+    function user_active() {
+        $user_service = new User_service();
+        echo $user_service->active_users(trim($this->input->post('id', TRUE)));
 
     }
 
@@ -135,6 +145,19 @@ class Users extends CI_Controller {
         $user_model->set_updated_date(date("Y-m-d H:i:s"));
 
         echo $user_service->update_user($user_model);
+    }
+
+    //check for user name
+    public function check_user_name(){
+        $user_service = new User_service();
+
+        $user_count = $user_service->check_user_name($this->input->post('username', TRUE));
+        if($user_count == 0){
+            echo "1";
+        } else {
+            echo "0";
+        }
+
     }
 
     /*
